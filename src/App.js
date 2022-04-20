@@ -1,23 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 
 function App() {
+  // const [characters, setCharacters] = useState([])
+  const [dog, setDog] = useState("")
+  const [error, setError] = useState(null)
+  
+
+  // useEffect(() => {
+  //   const fetchCharacters = async () => {
+  //     try {
+  //       const response = await fetch("https://www.breakingbadapi.com/api/characters")
+  //       if (!response.ok) {
+  //         throw new Error(response.statusText)
+  //       }
+  //       const data = await response.json()
+  //       setCharacters(data)
+        
+  //     } catch (err) {
+  //       console.log(err.message)
+  //       setError("Could not fetch data")
+  //     }
+  //   }
+  //   fetchCharacters()
+  // }, [])
+
+  useEffect(() => {
+    const fetchDog = async () => {
+      try {
+        const response = await fetch("https://dog.ceo/api/breed/Affenpinscher/images/random")
+        if (!response.ok) {
+          throw new Error(response.statusText)
+        }
+        const data = await response.json()
+        setDog(data)
+        
+      } catch (err) {
+        console.log(err.message)
+        setError("Could not fetch data")
+      }
+    }
+    fetchDog()
+  }, [dog])
+  
+ 
+  
+
+  // console.log(characters)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* {characters.map((character) => (
+        <div key={character.name}>
+          {error && <p>{error}</p>}
+          <div>{ character.name }</div>
+          <img src={character.img} alt="Breaking bad character" />
+
+        </div>
+      ))} */}
+      {/* {dog.map(dog => (
+        <div>
+          {error && <p>{error}</p>}
+          <img src={dog.message} />
+        </div>
+      ))} */}
+      <img src={dog.message} alt="doggy" />
     </div>
   );
 }
